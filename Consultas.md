@@ -1,7 +1,7 @@
 # Projeto Prático - Introdução a Sistemas de Banco de Dados.
 
 ## Modelagem relacional
-[!Imagem do diagrama relacional do banco de dados](https://github.com/gabrafo/Projeto-IntroSistemasBD/blob/main/imgs/modelagem-bd.png)
+![Imagem do diagrama relacional do banco de dados](https://github.com/gabrafo/Projeto-IntroSistemasBD/blob/main/imgs/modelagem-bd.png)
 
 ## `CREATE TABLE`
 ```sql
