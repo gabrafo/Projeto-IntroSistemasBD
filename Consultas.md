@@ -217,7 +217,28 @@ CREATE TABLE IF NOT EXISTS `projetoISBD`.`Guerreiro` (
     ON UPDATE NO ACTION);
 ```
 
-## Populando o BD...
+## `ALTER TABLE` e `DROP TABLE`
+```sql
+-- Exemplo 1: Adicionar uma nova coluna
+ALTER TABLE Jogavel ADD COLUMN nivel INT DEFAULT 1;
+
+-- Exemplo 2: Modificar o tipo de uma coluna
+ALTER TABLE Jogavel MODIFY COLUMN nivel DECIMAL(3,2);
+
+-- Exemplo 3: Remover uma coluna
+ALTER TABLE Jogavel DROP COLUMN nivel;
+
+-- Criar uma tabela extra para exemplo
+CREATE TABLE ExemploExtra (
+    IdExemplo INT PRIMARY KEY,
+    descricao VARCHAR(100)
+);
+
+-- Excluir a tabela extra
+DROP TABLE ExemploExtra;
+```
+
+## `INSERT`
 ```sql
 use projetoISBD;
 
@@ -289,25 +310,4 @@ INSERT INTO Comum (resistencia, dano, preco, idPersonagem) VALUES
 INSERT INTO Compra VALUES
 (2, 1, 2), -- Legolas compra Arco Élfico de Ferreiro Tobho
 (3, 2, 3); -- Arya compra Adaga de Andre of Astora
-```
-
-## `ALTER TABLE` e `DROP TABLE`
-```sql
--- Exemplo 1: Adicionar uma nova coluna
-ALTER TABLE Jogavel ADD COLUMN nivel INT DEFAULT 1;
-
--- Exemplo 2: Modificar o tipo de uma coluna
-ALTER TABLE Jogavel MODIFY COLUMN nivel DECIMAL(3,2);
-
--- Exemplo 3: Remover uma coluna
-ALTER TABLE Jogavel DROP COLUMN nivel;
-
--- Criar uma tabela extra para exemplo
-CREATE TABLE ExemploExtra (
-    IdExemplo INT PRIMARY KEY,
-    descricao VARCHAR(100)
-);
-
--- Excluir a tabela extra
-DROP TABLE ExemploExtra;
 ```
