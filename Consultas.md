@@ -400,13 +400,14 @@ INSERT INTO Comum (resistencia, dano, preco, idPersonagem) VALUES
 
 -- Transações (Compra):
 INSERT INTO Compra VALUES
-(1, 1, 1),   -- Artorias compra Estus Flask de Andre
-(5, 3, 3),   -- Ranni compra Golden Rune de Miriel
-(7, 5, 5),   -- Boromir compra Pão Lembas de Treebeard
-(9, 6, 6),   -- Galadriel compra Arco Élfico de Elrond
-(4, 4, 4),   -- Radahn compra Espada de Cavaleiro de Thops
-(10, 7, 7),  -- Geralt compra Adaga de Prata de Vesemir
-(8, 8, 8);   -- Faramir compra Poção de Zoltan
+(1, 3, 3),
+(1, 1, 1),
+(5, 3, 3),
+(7, 5, 5),
+(9, 6, 6),
+(4, 4, 4),
+(10, 7, 7),
+(8, 8, 8);
 
 -- EXEMPLOS DE RESTRIÇÃO
 -- Exemplo: valor DEFAULT de "saldo"
@@ -419,4 +420,40 @@ INSERT INTO Jogavel (nome, idade, raca, localOrigem, xpJogador, resistencia, fur
 INSERT INTO Jogavel (nome, idade, raca, localOrigem, xpJogador, resistencia, furtividade, precisao, magia, dano, idClasse) VALUES
 -- Dark Souls:
 ('Solaire', 45, 'Humano', 'Astora', 300, 8, 3, 7, 4, 6, 1);               -- Guerreiro (idClasse 1)
+```
+
+## `UPDATE`
+```sql
+-- Atualizar saldo de um jogador
+UPDATE Jogavel SET saldo = saldo + 50.00 WHERE IdPersonagem = 1;
+
+-- Atualizar experiência de missão
+UPDATE Missao SET xpMissao = xpMissao + 50 WHERE IdMissao = 1;
+
+-- Atualizar tipo de não jogável
+UPDATE NaoJogavel SET tipoNaoJogavel = 'M' WHERE IdPersonagem = 1;
+
+-- Atualizar local de origem de um jogador
+UPDATE Jogavel SET localOrigem = 'RJ' WHERE IdPersonagem = 1;
+
+-- Atualização aninhada: Aumentar o dano de todos os itens comprados por um jogador
+UPDATE Comum SET dano = dano + 1 WHERE idItem IN (SELECT idItem FROM Compra WHERE IdPersonagemJogavel = 1);
+```
+
+## `DELETE`
+```sql
+-- Excluir um jogador
+DELETE FROM Jogavel WHERE IdPersonagem = 1;
+
+-- Excluir uma missão
+DELETE FROM Missao WHERE idMissao = 1;
+
+-- Exclusão aninhada: Excluir todos os itens comprados por um jogador
+DELETE FROM Comum WHERE idItem IN (SELECT idItem FROM Compra WHERE IdPersonagemJogavel = 1);
+
+-- Excluir um não jogável
+DELETE FROM NaoJogavel WHERE IdPersonagem = 1;
+
+-- Excluir realizações de missões
+DELETE FROM Realiza WHERE IdPersonagem = 1;
 ```
