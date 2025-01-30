@@ -289,7 +289,7 @@ INSERT INTO Jogavel (nome, idade, raca, localOrigem, saldo, xpJogador, resistenc
 -- NPCs (NaoJogavel):
 INSERT INTO NaoJogavel (nome, idade, raca, localOrigem, historia, tipoNaoJogavel) VALUES
 -- Game of Thrones:
-('Corvo de Três Olhos', 1000, 'Corvo Místico', 'Westeros', 'Guardião da memória do reino', 'M'), -- Mestre (M)
+('Corvo de Três Olhos', 1000, 'Corvo Místico', 'Westeros', 'Guardião da memória do reino', 'M'), -- Mercador (M)
 ('Ferreiro Tobho', 60, 'Humano', 'Kings Landing', 'Forja armas com aço valiriano', 'O'),         -- Outro (O)
 
 -- Dark Souls:
