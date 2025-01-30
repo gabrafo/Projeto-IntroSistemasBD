@@ -250,21 +250,165 @@ INSERT INTO Classe (tipoClasse) VALUES
 ('ASS'), -- Assassino (Ex: Arya Stark, Patches de Dark Souls)
 ('LAD'); -- Ladrão (Ex: Tyrion Lannister, Lautrec de Dark Souls)
 
--- Especializações com "+ atributos"
+-- Especializações
 INSERT INTO Guerreiro (idClasse, `+resistencia`) VALUES (1, 5);    -- Bônus de resistência para guerreiros
 INSERT INTO Arqueiro (idClasse, `+precisao`) VALUES (2, 6);        -- Bônus de precisão para arqueiros
 INSERT INTO Mago (idClasse, `+magia`) VALUES (3, 7);               -- Bônus de magia para magos
 INSERT INTO Assassino (idClasse, `+dano`) VALUES (4, 8);           -- Bônus de dano para assassinos
 INSERT INTO Ladrao (idClasse, `+furtividade`) VALUES (5, 6);       -- Bônus de furtividade para ladrões
 
+-- EXEMPLOS DE INSERÇÃO
 INSERT INTO Jogavel (nome, idade, raca, localOrigem, saldo, xpJogador, resistencia, furtividade, precisao, magia, dano, idClasse) VALUES
 -- Senhor dos Anéis:
 ('Aragorn', 87, 'Dúnadan', 'Vales do Anduin', 500.00, 200, 9, 4, 8, 2, 7, 1),      -- Guerreiro (idClasse 1)
 ('Legolas', 2931, 'Elfo', 'Floresta das Trevas', 300.00, 180, 5, 7, 10, 3, 6, 2), -- Arqueiro (idClasse 2)
 
 -- Game of Thrones:
-('Arya Stark', 18, 'Humana', 'Winterfell', 150.00, 150, 6, 10, 9, 1, 8, 4);        -- Assassino (idClasse 4)
+('Arya Stark', 18, 'Humana', 'Winterfell', 150.00, 150, 6, 10, 9, 1, 8, 4),        -- Assassino (idClasse 4)
 
+-- Dark Souls:
+('Artorias', 200, 'Cavaleiro', 'Abismo', 0.00, 400, 10, 2, 8, 3, 9, 1),      -- Guerreiro (idClasse 1)
+('Lautrec', 38, 'Assassino', 'Carim', 300.00, 200, 5, 9, 7, 1, 8, 4),       -- Assassino (idClasse 4)
+
+-- Elden Ring:
+('Radahn', 150, 'Demigodo', 'Caelid', 5000.00, 500, 10, 2, 9, 4, 10, 1),    -- Guerreiro
+('Ranni', 120, 'Feiticeira', 'Lunaris', 2000.00, 300, 3, 8, 7, 10, 4, 3),   -- Mago (idClasse 3)
+('Blaidd', 90, 'Meio-Lobo', 'Lands Between', 800.00, 250, 8, 6, 8, 2, 7, 1),-- Guerreiro
+
+-- Senhor dos Anéis:
+('Boromir', 40, 'Humano', 'Gondor', 200.00, 150, 8, 3, 7, 1, 6, 1),         -- Guerreiro
+('Faramir', 35, 'Humano', 'Gondor', 180.00, 130, 6, 5, 9, 2, 5, 2),         -- Arqueiro (idClasse 2)
+('Galadriel', 3000, 'Elfo', 'Lothlórien', 500.00, 400, 4, 7, 8, 9, 3, 3),   -- Mago
+
+-- The Witcher (crossover):
+('Geralt', 98, 'Bruxo', 'Kaer Morhen', 800.00, 300, 8, 7, 9, 6, 9, 4);      -- Assassino
+
+-- NPCs (NaoJogavel):
+INSERT INTO NaoJogavel (nome, idade, raca, localOrigem, historia, tipoNaoJogavel) VALUES
+-- Game of Thrones:
+('Corvo de Três Olhos', 1000, 'Corvo Místico', 'Westeros', 'Guardião da memória do reino', 'M'), -- Mercador (M)
+('Ferreiro Tobho', 60, 'Humano', 'Kings Landing', 'Forja armas com aço valiriano', 'O'),         -- Outro (O)
+
+-- Dark Souls:
+('Andre of Astora', 200, 'Gigante', 'Astora', 'Ferreiro lendário de Lordran', 'O'),
+('Quelana', 1000, 'Filha do Caos', 'Izalith', 'Mestra do de fogo', 'M'),
+
+-- Elden Ring:
+('Miriel', 500, 'Tartaruga', 'Ter. Intermédias', 'Sacerdote das Vows', 'M'),
+('Thops', 30, 'Humano', 'Raya Lucaria', 'Estudioso de barreiras mágicas', 'O'),
+
+-- Senhor dos Anéis:
+('Treebeard', 10000, 'Ent', 'Fangorn', 'Guardião das árvores', 'M'),
+('Elrond', 6500, 'Meio-Elfo', 'Valfenda', 'Senhor de Valfenda', 'M'),
+
+-- The Witcher:
+('Vesemir', 200, 'Bruxo', 'Kaer Morhen', 'Mestre dos bruxos', 'M'),
+('Zoltan', 85, 'Anão', 'Mahakam', 'Mercador de armas', 'O'),
+
+-- Dark Souls (NPCs adicionais):
+('Siegmeyer', 50, 'Humano', 'Catarina', 'Cavaleiro da cebola', 'O'),
+('Quelaag', 500, 'Filha do Caos', 'Izalith', 'Irmã de Quelana', 'M');
+
+-- Missões:
+INSERT INTO Missao (xpMissao, dinheiro) VALUES
+-- Game of Thrnes
+(100, 200.00), -- Proteger a Muralha
+
+-- Dark Souls:
+(200, 500.00),  -- Derrotar Gwyn
+(150, 300.00),  -- Reacender a Chama
+(150, 300.00), -- Reacender a Chama
+
+-- Elden Ring:
+(300, 800.00),  -- Tornar-se Lorde Elden
+(250, 600.00),  -- Derrotar o Elden Beast
+
+-- Senhor dos Anéis:
+(180, 400.00),  -- Destruir o Anel
+(120, 250.00),  -- Defender Minas Tirith
+(80, 150.00),  -- Recuperar o Anel
+
+-- The Witcher:
+(100, 200.00),  -- Matar o Rei dos Caçadores
+(80, 150.00),   -- Encontrar Ciri
+
+-- Dark Souls (Missões adicionais):
+(90, 100.00),   -- Resgatar Sieglinde
+(70, 80.00);    -- Coletar almas de heróis
+
+-- Personagens realizando missões:
+INSERT INTO Realiza (idPersonagem, idMissao) VALUES
+-- Dark Souls:
+(11, 13),  -- Artorias (idPersonagem 11) realiza "Derrotar Gwyn" (idMissao 13)
+(12, 14),  -- Solaire (idPersonagem 12) realiza "Reacender a Chama" (idMissao 14)
+
+-- Elden Ring:
+(13, 16),  -- Radahn (idPersonagem 13) realiza "Derrotar o Elden Beast" (idMissao 16)
+(14, 15),  -- Ranni (idPersonagem 14) realiza "Tornar-se Lorde Elden" (idMissao 15)
+(15, 16),  -- Malenia (idPersonagem 15) ajuda Radahn contra o Elden Beast
+
+-- Senhor dos Anéis:
+(1, 11),   -- Aragorn (idPersonagem 1) na missão "Destruir o Anel" (idMissao 11)
+(5, 11),   -- Boromir (idPersonagem 5) ajuda Aragorn
+(7, 12),   -- Galadriel (idPersonagem 7) na missão "Defender Minas Tirith" (idMissao 12)
+(6, 17),   -- Faramir (idPersonagem 6) na missão "Defender Helms Deep" (idMissao 17)
+
+-- The Witcher:
+(8, 18),   -- Geralt (idPersonagem 8) na missão "Encontrar Ciri" (idMissao 18)
+
+-- Game of Thrones:
+(3, 19),   -- Arya Stark (idPersonagem 3) na missão "Resgatar Sieglinde" (idMissao 19)
+
+-- Dark Souls (Missões secundárias):
+(9, 20),   -- Lautrec (idPersonagem 9) na missão "Coletar Almas de Heróis" (idMissao 20)
+(10, 14);  -- Blaidd (idPersonagem 10) ajuda Solaire a reacender a chama
+
+-- Itens Únicos (Unico):
+INSERT INTO Unico (resistencia, dano, `+dano`, `+resistencia`, Missao_idMissao) VALUES
+-- Elden Ring:
+(25, 30, 12, 8, 3),   -- Espada "Starscourge Greatsword" (Radahn)
+(10, 5, 3, 20, 4),    -- Armadura "Maliketh's Armor"
+(15, 10, 5, 15, 2); -- Armadura "Havel's Set"
+
+-- Senhor dos Anéis:
+(18, 20, 8, 10, 5),   -- Espada "Andúril"
+(5, 3, 2, 5, 6),      -- Armadura "Mithril"
+(20, 25, 10, 5, 3), -- Espada "Andúril"
+
+-- The Witcher:
+(12, 18, 7, 6, 7),    -- Espada "Aerondight"
+(8, 12, 5, 4, 8);     -- Armadura "Geralt's Armor"
+
+-- Itens Comuns (Comum):
+INSERT INTO Comum (resistencia, dano, preco, idPersonagem) VALUES
+-- Dark Souls:
+(5, 8, 50.00, 1),    -- Estus Flask (vendido por Andre)
+(3, 5, 30.00, 2),    -- Arco Curto (vendido por Quelana)
+
+-- Elden Ring:
+(10, 15, 100.00, 3), -- Golden Rune (vendido por Miriel)
+(8, 12, 80.00, 4),   -- Espada de Cavaleiro (vendido por Thops)
+
+-- Senhor dos Anéis:
+(2, 1, 10.00, 5),    -- Pão Lembas (vendido por Treebeard)
+(6, 4, 40.00, 6),    -- Arco Élfico (vendido por Elrond)
+(5, 8, 500.00, 2),    -- Arco Élfico (Vendido por Ferreiro Tobho)
+
+-- The Witcher:
+(7, 10, 60.00, 7),   -- Adaga de Prata (vendido por Vesemir)
+(4, 3, 20.00, 8);    -- Poção de Toxina (vendido por Zoltan)
+
+-- Transações (Compra):
+INSERT INTO Compra VALUES
+(1, 1, 1),   -- Artorias compra Estus Flask de Andre
+(5, 3, 3),   -- Ranni compra Golden Rune de Miriel
+(7, 5, 5),   -- Boromir compra Pão Lembas de Treebeard
+(9, 6, 6),   -- Galadriel compra Arco Élfico de Elrond
+(4, 4, 4),   -- Radahn compra Espada de Cavaleiro de Thops
+(10, 7, 7),  -- Geralt compra Adaga de Prata de Vesemir
+(8, 8, 8);   -- Faramir compra Poção de Zoltan
+
+-- EXEMPLOS DE RESTRIÇÃO
 -- Exemplo: valor DEFAULT de "saldo"
 INSERT INTO Jogavel (nome, idade, raca, localOrigem, xpJogador, resistencia, furtividade, precisao, magia, dano, idClasse) VALUES
 -- Dark Souls:
@@ -275,39 +419,4 @@ INSERT INTO Jogavel (nome, idade, raca, localOrigem, xpJogador, resistencia, fur
 INSERT INTO Jogavel (nome, idade, raca, localOrigem, xpJogador, resistencia, furtividade, precisao, magia, dano, idClasse) VALUES
 -- Dark Souls:
 ('Solaire', 45, 'Humano', 'Astora', 300, 8, 3, 7, 4, 6, 1);               -- Guerreiro (idClasse 1)
-
--- NPCs (NaoJogavel):
-INSERT INTO NaoJogavel (nome, idade, raca, localOrigem, historia, tipoNaoJogavel) VALUES
--- Game of Thrones:
-('Corvo de Três Olhos', 1000, 'Corvo Místico', 'Westeros', 'Guardião da memória do reino', 'M'), -- Mercador (M)
-('Ferreiro Tobho', 60, 'Humano', 'Kings Landing', 'Forja armas com aço valiriano', 'O'),         -- Outro (O)
-
--- Dark Souls:
-('Andre of Astora', 200, 'Gigante', 'Astora', 'Ferreiro lendário de Lordran', 'O');
-
--- Missões:
-INSERT INTO Missao (xpMissao, dinheiro) VALUES
-(100, 200.00), -- Missão: "Proteger a Muralha" (Game of Thrones)
-(150, 300.00), -- Missão: "Reacender a Chama" (Dark Souls)
-(80, 150.00);  -- Missão: "Recuperar o Um Anel" (Senhor dos Anéis)
-
--- Personagens realizando missões:
-INSERT INTO Realiza (idPersonagem, idMissao) VALUES
-(1, 1), -- Aragorn na missão "Proteger a Muralha"
-(3, 3); -- Arya Stark na missão "Recuperar o Um Anel"
-
--- Itens Únicos (Unico):
-INSERT INTO Unico (resistencia, dano, `+dano`, `+resistencia`, Missao_idMissao) VALUES
-(20, 25, 10, 5, 3), -- Espada "Andúril" (Senhor dos Anéis) - Vinculada à missão 3
-(15, 10, 5, 15, 2); -- Armadura "Havel's Set" (Dark Souls) - Vinculada à missão 2
-
--- Itens Comuns (Comum):
-INSERT INTO Comum (resistencia, dano, preco, idPersonagem) VALUES
-(5, 8, 500.00, 2),    -- Arco Élfico (Vendido por Ferreiro Tobho)
-(10, 3, 300.00, 3);   -- Adaga de Aço Valiriano (Vendido por Andre of Astora)
-
--- Transações (Compra):
-INSERT INTO Compra VALUES
-(2, 1, 2), -- Legolas compra Arco Élfico de Ferreiro Tobho
-(3, 2, 3); -- Arya compra Adaga de Andre of Astora
 ```
