@@ -281,10 +281,18 @@ INSERT INTO Jogavel (nome, idade, raca, localOrigem, saldo, xpJogador, resistenc
 ('Legolas', 2931, 'Elfo', 'Floresta das Trevas', 300.00, 180, 5, 7, 10, 3, 6, 2), -- Arqueiro (idClasse 2)
 
 -- Game of Thrones:
-('Arya Stark', 18, 'Humana', 'Winterfell', 150.00, 150, 6, 10, 9, 1, 8, 4),        -- Assassino (idClasse 4)
+('Arya Stark', 18, 'Humana', 'Winterfell', 150.00, 150, 6, 10, 9, 1, 8, 4);        -- Assassino (idClasse 4)
 
+-- Exemplo: valor DEFAULT de "saldo"
+INSERT INTO Jogavel (nome, idade, raca, localOrigem, xpJogador, resistencia, furtividade, precisao, magia, dano, idClasse) VALUES
 -- Dark Souls:
-('Solaire', 45, 'Humano', 'Astora', 750.00, 300, 8, 3, 7, 4, 6, 1);               -- Guerreiro (idClasse 1)
+('Solaire', 45, 'Humano', 'Astora', 300, 8, 3, 7, 4, 6, 1);               -- Guerreiro (idClasse 1)
+
+-- Exemplo: nome não pode ser repetido (UNIQUE)
+-- Error Code: 1062. Duplicate entry 'Solaire' for key 'Jogavel.nome'
+INSERT INTO Jogavel (nome, idade, raca, localOrigem, xpJogador, resistencia, furtividade, precisao, magia, dano, idClasse) VALUES
+-- Dark Souls:
+('Solaire', 45, 'Humano', 'Astora', 300, 8, 3, 7, 4, 6, 1);               -- Guerreiro (idClasse 1)
 
 -- NPCs (NaoJogavel):
 INSERT INTO NaoJogavel (nome, idade, raca, localOrigem, historia, tipoNaoJogavel) VALUES
@@ -320,4 +328,25 @@ INSERT INTO Comum (resistencia, dano, preco, idPersonagem) VALUES
 INSERT INTO Compra VALUES
 (2, 1, 2), -- Legolas compra Arco Élfico de Ferreiro Tobho
 (3, 2, 3); -- Arya compra Adaga de Andre of Astora
+```
+
+## `ALTER TABLE` e `DROP TABLE`
+```sql
+-- Exemplo 1: Adicionar uma nova coluna
+ALTER TABLE Jogavel ADD COLUMN nivel INT DEFAULT 1;
+
+-- Exemplo 2: Modificar o tipo de uma coluna
+ALTER TABLE Jogavel MODIFY COLUMN nivel DECIMAL(3,2);
+
+-- Exemplo 3: Remover uma coluna
+ALTER TABLE Jogavel DROP COLUMN nivel;
+
+-- Criar uma tabela extra para exemplo
+CREATE TABLE ExemploExtra (
+    IdExemplo INT PRIMARY KEY,
+    descricao VARCHAR(100)
+);
+
+-- Excluir a tabela extra
+DROP TABLE ExemploExtra;
 ```
