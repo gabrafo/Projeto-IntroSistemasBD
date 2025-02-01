@@ -219,22 +219,22 @@ CREATE TABLE IF NOT EXISTS `projetoISBD`.`Guerreiro` (
 
 ## `ALTER TABLE` e `DROP TABLE`
 ```sql
--- Exemplo 1: Adicionar uma nova coluna
+-- Exemplo 1: Adicionando uma nova coluna
 ALTER TABLE Jogavel ADD COLUMN nivel INT DEFAULT 1;
 
--- Exemplo 2: Modificar o tipo de uma coluna
+-- Exemplo 2: Modificando o tipo de uma coluna
 ALTER TABLE Jogavel MODIFY COLUMN nivel DECIMAL(3,2);
 
--- Exemplo 3: Remover uma coluna
+-- Exemplo 3: Removendo uma coluna
 ALTER TABLE Jogavel DROP COLUMN nivel;
 
--- Criar uma tabela extra para exemplo
+-- Criando uma tabela extra para exemplo
 CREATE TABLE ExemploExtra (
     IdExemplo INT PRIMARY KEY,
     descricao VARCHAR(100)
 );
 
--- Excluir a tabela extra
+-- Excluindo a tabela extra
 DROP TABLE ExemploExtra;
 ```
 
@@ -244,197 +244,150 @@ use projetoISBD;
 
 -- Inserindo classes base
 INSERT INTO Classe (tipoClasse) VALUES 
-('GUE'), -- Guerreiro (Ex: Aragorn, Jon Snow)
-('ARQ'), -- Arqueiro (Ex: Legolas, Theon Greyjoy)
-('MAG'), -- Mago (Ex: Gandalf, Melisandre)
-('ASS'), -- Assassino (Ex: Arya Stark, Patches de Dark Souls)
-('LAD'); -- Ladrão (Ex: Tyrion Lannister, Lautrec de Dark Souls)
+('GUE'), -- Guerreiro
+('ARQ'), -- Arqueiro
+('MAG'), -- Mago
+('ASS'), -- Assassino
+('LAD'); -- Ladrão
 
 -- Especializações
-INSERT INTO Guerreiro (idClasse, `+resistencia`) VALUES (1, 5);    -- Bônus de resistência para guerreiros
-INSERT INTO Arqueiro (idClasse, `+precisao`) VALUES (2, 6);        -- Bônus de precisão para arqueiros
-INSERT INTO Mago (idClasse, `+magia`) VALUES (3, 7);               -- Bônus de magia para magos
-INSERT INTO Assassino (idClasse, `+dano`) VALUES (4, 8);           -- Bônus de dano para assassinos
-INSERT INTO Ladrao (idClasse, `+furtividade`) VALUES (5, 6);       -- Bônus de furtividade para ladrões
+INSERT INTO Guerreiro (idClasse, `+resistencia`) VALUES (1, 5);
+INSERT INTO Arqueiro (idClasse, `+precisao`) VALUES (2, 6);
+INSERT INTO Mago (idClasse, `+magia`) VALUES (3, 7);
+INSERT INTO Assassino (idClasse, `+dano`) VALUES (4, 8);
+INSERT INTO Ladrao (idClasse, `+furtividade`) VALUES (5, 6);
 
 -- EXEMPLOS DE INSERÇÃO
 INSERT INTO Jogavel (nome, idade, raca, localOrigem, saldo, xpJogador, resistencia, furtividade, precisao, magia, dano, idClasse) VALUES
--- Senhor dos Anéis:
 ('Aragorn', 87, 'Dúnadan', 'Vales do Anduin', 500.00, 200, 9, 4, 8, 2, 7, 1),      -- Guerreiro (idClasse 1)
-('Legolas', 2931, 'Elfo', 'Floresta das Trevas', 300.00, 180, 5, 7, 10, 3, 6, 2), -- Arqueiro (idClasse 2)
-
--- Game of Thrones:
+('Legolas', 2931, 'Elfo', 'Floresta das Trevas', 300.00, 180, 5, 7, 10, 3, 6, 2),  -- Arqueiro (idClasse 2)
 ('Arya Stark', 18, 'Humana', 'Winterfell', 150.00, 150, 6, 10, 9, 1, 8, 4),        -- Assassino (idClasse 4)
-
--- Dark Souls:
-('Artorias', 200, 'Cavaleiro', 'Abismo', 0.00, 400, 10, 2, 8, 3, 9, 1),      -- Guerreiro (idClasse 1)
-('Lautrec', 38, 'Assassino', 'Carim', 300.00, 200, 5, 9, 7, 1, 8, 4),       -- Assassino (idClasse 4)
-
--- Elden Ring:
-('Radahn', 150, 'Demigodo', 'Caelid', 5000.00, 500, 10, 2, 9, 4, 10, 1),    -- Guerreiro
-('Ranni', 120, 'Feiticeira', 'Lunaris', 2000.00, 300, 3, 8, 7, 10, 4, 3),   -- Mago (idClasse 3)
-('Blaidd', 90, 'Meio-Lobo', 'Lands Between', 800.00, 250, 8, 6, 8, 2, 7, 1),-- Guerreiro
-
--- Senhor dos Anéis:
-('Boromir', 40, 'Humano', 'Gondor', 200.00, 150, 8, 3, 7, 1, 6, 1),         -- Guerreiro
-('Faramir', 35, 'Humano', 'Gondor', 180.00, 130, 6, 5, 9, 2, 5, 2),         -- Arqueiro (idClasse 2)
-('Galadriel', 3000, 'Elfo', 'Lothlórien', 500.00, 400, 4, 7, 8, 9, 3, 3),   -- Mago
-
--- The Witcher (crossover):
-('Geralt', 98, 'Bruxo', 'Kaer Morhen', 800.00, 300, 8, 7, 9, 6, 9, 4);      -- Assassino
+('Artorias', 200, 'Cavaleiro', 'Abismo', 0.00, 400, 10, 2, 8, 3, 9, 1),            -- Guerreiro
+('Lautrec', 38, 'Assassino', 'Carim', 300.00, 200, 5, 9, 7, 1, 8, 4),              -- Assassino
+('Radahn', 150, 'Demigodo', 'Caelid', 5000.00, 500, 10, 2, 9, 4, 10, 1),           -- Guerreiro
+('Ranni', 120, 'Feiticeira', 'Lunaris', 2000.00, 300, 3, 8, 7, 10, 4, 3),          -- Mago (idClasse 3)
+('Blaidd', 90, 'Meio-Lobo', 'Lands Between', 800.00, 250, 8, 6, 8, 2, 7, 1),       -- Guerreiro
+('Boromir', 40, 'Humano', 'Gondor', 200.00, 150, 8, 3, 7, 1, 6, 5),                -- Ladrão (idClasse 5)
+('Faramir', 35, 'Humano', 'Gondor', 180.00, 130, 6, 5, 9, 2, 5, 2),                -- Arqueiro
+('Galadriel', 3000, 'Elfo', 'Lothlórien', 500.00, 400, 4, 7, 8, 9, 3, 3),          -- Mago
+('Geralt', 98, 'Bruxo', 'Kaer Morhen', 800.00, 300, 8, 7, 9, 6, 9, 4);             -- Assassino
 
 -- NPCs (NaoJogavel):
 INSERT INTO NaoJogavel (nome, idade, raca, localOrigem, historia, tipoNaoJogavel) VALUES
--- Game of Thrones:
 ('Corvo de Três Olhos', 1000, 'Corvo Místico', 'Westeros', 'Guardião da memória do reino', 'M'), -- Mercador (M)
 ('Ferreiro Tobho', 60, 'Humano', 'Kings Landing', 'Forja armas com aço valiriano', 'O'),         -- Outro (O)
-
--- Dark Souls:
 ('Andre of Astora', 200, 'Gigante', 'Astora', 'Ferreiro lendário de Lordran', 'O'),
 ('Quelana', 1000, 'Filha do Caos', 'Izalith', 'Mestra do de fogo', 'M'),
-
--- Elden Ring:
+('Siegmeyer', 50, 'Humano', 'Catarina', 'Cavaleiro da cebola', 'O'),
+('Quelaag', 500, 'Filha do Caos', 'Izalith', 'Irmã de Quelana', 'M'),
 ('Miriel', 500, 'Tartaruga', 'Ter. Intermédias', 'Sacerdote das Vows', 'M'),
 ('Thops', 30, 'Humano', 'Raya Lucaria', 'Estudioso de barreiras mágicas', 'O'),
-
--- Senhor dos Anéis:
 ('Treebeard', 10000, 'Ent', 'Fangorn', 'Guardião das árvores', 'M'),
 ('Elrond', 6500, 'Meio-Elfo', 'Valfenda', 'Senhor de Valfenda', 'M'),
-
--- The Witcher:
 ('Vesemir', 200, 'Bruxo', 'Kaer Morhen', 'Mestre dos bruxos', 'M'),
-('Zoltan', 85, 'Anão', 'Mahakam', 'Mercador de armas', 'O'),
-
--- Dark Souls (NPCs adicionais):
-('Siegmeyer', 50, 'Humano', 'Catarina', 'Cavaleiro da cebola', 'O'),
-('Quelaag', 500, 'Filha do Caos', 'Izalith', 'Irmã de Quelana', 'M');
+('Zoltan', 85, 'Anão', 'Mahakam', 'Mercador de armas', 'O');
 
 -- Missões:
 INSERT INTO Missao (xpMissao, dinheiro) VALUES
--- Game of Thrnes
-(100, 200.00), -- Proteger a Muralha
-
--- Dark Souls:
-(200, 500.00),  -- Derrotar Gwyn
-(150, 300.00),  -- Reacender a Chama
-(150, 300.00), -- Reacender a Chama
-
--- Elden Ring:
-(300, 800.00),  -- Tornar-se Lorde Elden
-(250, 600.00),  -- Derrotar o Elden Beast
-
--- Senhor dos Anéis:
-(180, 400.00),  -- Destruir o Anel
-(120, 250.00),  -- Defender Minas Tirith
-(80, 150.00),  -- Recuperar o Anel
-
--- The Witcher:
-(100, 200.00),  -- Matar o Rei dos Caçadores
-(80, 150.00),   -- Encontrar Ciri
-
--- Dark Souls (Missões adicionais):
-(90, 100.00),   -- Resgatar Sieglinde
-(70, 80.00);    -- Coletar almas de heróis
+(100, 200.00),
+(200, 500.00),
+(150, 300.00),
+(150, 300.00),
+(300, 800.00),
+(250, 600.00),
+(180, 400.00),
+(120, 250.00),
+(80, 150.00),
+(100, 200.00), 
+(80, 150.00),
+(90, 100.00),
+(70, 80.00); 
 
 -- Personagens realizando missões:
 INSERT INTO Realiza (idPersonagem, idMissao) VALUES
--- Dark Souls:
-(11, 13),  -- Artorias (idPersonagem 11) realiza "Derrotar Gwyn" (idMissao 13)
-(12, 14),  -- Solaire (idPersonagem 12) realiza "Reacender a Chama" (idMissao 14)
-
--- Elden Ring:
-(13, 16),  -- Radahn (idPersonagem 13) realiza "Derrotar o Elden Beast" (idMissao 16)
-(14, 15),  -- Ranni (idPersonagem 14) realiza "Tornar-se Lorde Elden" (idMissao 15)
-(15, 16),  -- Malenia (idPersonagem 15) ajuda Radahn contra o Elden Beast
-
--- Senhor dos Anéis:
-(1, 11),   -- Aragorn (idPersonagem 1) na missão "Destruir o Anel" (idMissao 11)
-(5, 11),   -- Boromir (idPersonagem 5) ajuda Aragorn
-(7, 12),   -- Galadriel (idPersonagem 7) na missão "Defender Minas Tirith" (idMissao 12)
-(6, 17),   -- Faramir (idPersonagem 6) na missão "Defender Helms Deep" (idMissao 17)
-
--- The Witcher:
-(8, 18),   -- Geralt (idPersonagem 8) na missão "Encontrar Ciri" (idMissao 18)
-
--- Game of Thrones:
-(3, 19),   -- Arya Stark (idPersonagem 3) na missão "Resgatar Sieglinde" (idMissao 19)
-
--- Dark Souls (Missões secundárias):
-(9, 20),   -- Lautrec (idPersonagem 9) na missão "Coletar Almas de Heróis" (idMissao 20)
-(10, 14);  -- Blaidd (idPersonagem 10) ajuda Solaire a reacender a chama
+(1, 3), -- Aragorn completa a Missão 3
+(1, 1), -- Aragorn completa a Missão 1
+(11, 13),-- Geralt completa a Missão 13
+(2, 11), -- Legolas completa a Missão 11
+(3, 12), -- Arya Stark completa a Missão 12
+(4, 10), -- Artorias completa a Missão 10
+(5, 6), -- Lautrec completa a Missão 6
+(5, 1), -- Lautrec completa a Missão 1
+(7, 2), -- Ranni completa a Missão 2
+(6, 7), -- Radahn completa a Missão 7
+(8, 8), -- Galadriel completa a Missão 8
+(3, 9), -- Arya Stark completa a Missão 9
+(9, 2), -- Boromir completa a Missão 2
+(10, 4); -- Faramir completa a Missão 4
 
 -- Itens Únicos (Unico):
 INSERT INTO Unico (resistencia, dano, `+dano`, `+resistencia`, Missao_idMissao) VALUES
--- Elden Ring:
-(25, 30, 12, 8, 3),   -- Espada "Starscourge Greatsword" (Radahn)
-(10, 5, 3, 20, 4),    -- Armadura "Maliketh's Armor"
-(15, 10, 5, 15, 2); -- Armadura "Havel's Set"
-
--- Senhor dos Anéis:
-(18, 20, 8, 10, 5),   -- Espada "Andúril"
-(5, 3, 2, 5, 6),      -- Armadura "Mithril"
-(20, 25, 10, 5, 3), -- Espada "Andúril"
-
--- The Witcher:
-(12, 18, 7, 6, 7),    -- Espada "Aerondight"
-(8, 12, 5, 4, 8);     -- Armadura "Geralt's Armor"
+(25, 30, 12, 8, 3), -- Relacionado à missão 3 (realizada por Aragorn)
+(10, 5, 3, 20, 4), -- Relacionado à missão 4 (realizada por Faramir)
+(15, 10, 5, 15, 2), -- Relacionado à missão 2 (realizada por Ranni e Boromir)
+(18, 20, 8, 10, 5), -- Relacionado à missão 5
+(5, 3, 2, 5, 6), -- Relacionado à missão 6 (realizada por Lautrec)
+(20, 25, 10, 5, 3), -- Relacionado à missão 3 (realizada por Aragorn)
+(12, 18, 7, 6, 7), -- Relacionado à missão 7 (realizada por Radahn)
+(8, 12, 5, 4, 8); -- Relacionado à missão 8 (realizada por Galadriel)
 
 -- Itens Comuns (Comum):
 INSERT INTO Comum (resistencia, dano, preco, idPersonagem) VALUES
--- Dark Souls:
-(5, 8, 50.00, 1),    -- Estus Flask (vendido por Andre)
-(3, 5, 30.00, 2),    -- Arco Curto (vendido por Quelana)
-
--- Elden Ring:
-(10, 15, 100.00, 3), -- Golden Rune (vendido por Miriel)
-(8, 12, 80.00, 4),   -- Espada de Cavaleiro (vendido por Thops)
-
--- Senhor dos Anéis:
-(2, 1, 10.00, 5),    -- Pão Lembas (vendido por Treebeard)
-(6, 4, 40.00, 6),    -- Arco Élfico (vendido por Elrond)
-(5, 8, 500.00, 2),    -- Arco Élfico (Vendido por Ferreiro Tobho)
-
--- The Witcher:
-(7, 10, 60.00, 7),   -- Adaga de Prata (vendido por Vesemir)
-(4, 3, 20.00, 8);    -- Poção de Toxina (vendido por Zoltan)
+(5, 8, 50.00, 1), -- Relacionado a Aragorn
+(3, 5, 30.00, 2), -- Relacionado a Legolas
+(10, 15, 100.00, 3), -- Relacionado à Arya Stark
+(8, 12, 80.00, 4), -- Relacionado a Artorias
+(2, 1, 10.00, 5), -- Relacionado a Lautrec
+(6, 4, 40.00, 6), -- Relacionado a Radahn
+(5, 8, 500.00, 2), -- Relacionado a Legolas
+(7, 10, 60.00, 7), -- Relacionado à Ranni
+(4, 3, 20.00, 8); -- Relacionado a Galadriel
 
 -- Transações (Compra):
-INSERT INTO Compra VALUES
-(1, 3, 3),
-(1, 1, 1),
-(5, 3, 3),
-(7, 5, 5),
-(9, 6, 6),
-(4, 4, 4),
-(10, 7, 7),
-(8, 8, 8);
+INSERT INTO Compra (idPersonagemJogavel, idItem, idPersonagemNaoJogavel) VALUES
+(1, 3, 3),   -- Jogavel 1 (Aragorn) compra Comum 3 de NPC 3 (Andre of Astora)
+(1, 1, 1),   -- Jogavel 1 (Aragorn) compra Comum 1 de NPC 1 (Corvo de Três Olhos)
+(5, 3, 3),  -- Jogavel 51 (Lautrec) compra Comum 3 de NPC 3 (Andre of Astora)
+(7, 5, 5),   -- Jogavel 7 (Ranni) compra Comum 5 de NPC 5 (Siegmeyer)
+(9, 6, 6),   -- Jogavel 9 (Boromir) compra Comum 6 de NPC 6 (Quelaag)
+(4, 4, 4),   -- Jogavel 4 (Artorias) compra Comum 4 de NPC 4 (Quelana)
+(10, 7, 7),  -- Jogavel 10 (Faramir) compra Comum 7 de NPC 7 (Miriel)
+(8, 8, 8);   -- Jogavel 8 (Galadriel) compra Comum 8 de NPC 8 (Thops)
 
 -- EXEMPLOS DE RESTRIÇÃO
 -- Exemplo: valor DEFAULT de "saldo"
 INSERT INTO Jogavel (nome, idade, raca, localOrigem, xpJogador, resistencia, furtividade, precisao, magia, dano, idClasse) VALUES
--- Dark Souls:
-('Solaire', 45, 'Humano', 'Astora', 300, 8, 3, 7, 4, 6, 1);               -- Guerreiro (idClasse 1)
+('Solaire', 45, 'Humano', 'Astora', 300, 8, 3, 7, 4, 6, 1);
 
 -- Exemplo: nome não pode ser repetido (UNIQUE)
 -- Error Code: 1062. Duplicate entry 'Solaire' for key 'Jogavel.nome'
 INSERT INTO Jogavel (nome, idade, raca, localOrigem, xpJogador, resistencia, furtividade, precisao, magia, dano, idClasse) VALUES
--- Dark Souls:
-('Solaire', 45, 'Humano', 'Astora', 300, 8, 3, 7, 4, 6, 1);               -- Guerreiro (idClasse 1)
+('Solaire', 70, 'Druida', 'Astalavista', 320, 8, 3, 7, 4, 6, 1);
 ```
 
 ## `UPDATE`
 ```sql
+-- Auxiliares (ver modificações)
+SELECT * FROM Jogavel;                             -- Aux do 1° update
+SELECT * FROM Missao;                              -- Aux do 2° update
+SELECT * FROM NaoJogavel;                          -- Aux do 3° update
+SELECT * FROM Guerreiro;                           -- Aux do 4° update
+SELECT C.idPersonagemJogavel, C.idItem, CO.dano    -- Aux do 5° update
+FROM Compra C
+INNER JOIN Comum CO ON C.idItem = CO.idItem
+WHERE C.idPersonagemJogavel = 1;
+
 -- Atualizar saldo de um jogador
-UPDATE Jogavel SET saldo = saldo + 50.00 WHERE IdPersonagem = 1;
+UPDATE Jogavel SET saldo = saldo + 55.55 WHERE IdPersonagem = 1;
 
 -- Atualizar experiência de missão
-UPDATE Missao SET xpMissao = xpMissao + 50 WHERE IdMissao = 1;
+UPDATE Missao SET xpMissao = xpMissao + 33 WHERE IdMissao = 1;
 
 -- Atualizar tipo de não jogável
-UPDATE NaoJogavel SET tipoNaoJogavel = 'M' WHERE IdPersonagem = 1;
+UPDATE NaoJogavel SET tipoNaoJogavel = 'O' WHERE IdPersonagem = 1;
 
--- Atualizar local de origem de um jogador
-UPDATE Jogavel SET localOrigem = 'RJ' WHERE IdPersonagem = 1;
+-- Atualizar resistência bônus do Guerreiro 1
+UPDATE Guerreiro SET `+resistencia` = 10 WHERE IdClasse = 1;
 
 -- Atualização aninhada: Aumentar o dano de todos os itens comprados por um jogador
 UPDATE Comum SET dano = dano + 1 WHERE idItem IN (SELECT idItem FROM Compra WHERE IdPersonagemJogavel = 1);
@@ -442,18 +395,313 @@ UPDATE Comum SET dano = dano + 1 WHERE idItem IN (SELECT idItem FROM Compra WHER
 
 ## `DELETE`
 ```sql
+-- Auxiliares (ver modificações)
+SELECT C.idPersonagemJogavel, C.idItem, CO.dano    -- Aux do 1° delete
+FROM Compra C
+INNER JOIN Comum CO ON C.idItem = CO.idItem
+WHERE C.idPersonagemJogavel = 1;
+SELECT * FROM Realiza;                             -- Aux do 2° delete
+SELECT * FROM Jogavel;                             -- Aux do 3° delete
+SELECT * FROM Missao;                              -- Aux do 4° delete
+SELECT * FROM NaoJogavel;                          -- Aux do 5° delete
+
+-- Exclusão aninhada: Excluir todos os itens comprados por um jogador
+DELETE FROM Comum WHERE idItem IN (SELECT idItem FROM Compra WHERE IdPersonagemJogavel = 1);
+
+-- Excluir realizações de missões
+DELETE FROM Realiza WHERE IdPersonagem = 1;
+
 -- Excluir um jogador
 DELETE FROM Jogavel WHERE IdPersonagem = 1;
 
 -- Excluir uma missão
 DELETE FROM Missao WHERE idMissao = 1;
 
--- Exclusão aninhada: Excluir todos os itens comprados por um jogador
-DELETE FROM Comum WHERE idItem IN (SELECT idItem FROM Compra WHERE IdPersonagemJogavel = 1);
-
 -- Excluir um não jogável
 DELETE FROM NaoJogavel WHERE IdPersonagem = 1;
+```
 
--- Excluir realizações de missões
-DELETE FROM Realiza WHERE IdPersonagem = 1;
+## `SELECT`
+```sql
+-- F1 - Recupera o nome dos jogadores e o tipo de classe que eles pertencem
+SELECT J.nome, C.tipoClasse
+FROM Jogavel J
+INNER JOIN Classe C ON J.idClasse = C.idClasse;
+
+-- F2 - Recupera todos os jogadores e suas missões, incluindo jogadores sem missões
+SELECT J.nome, M.idMissao
+FROM Jogavel J
+LEFT JOIN Realiza R ON J.idPersonagem = R.idPersonagem
+LEFT JOIN Missao M ON R.idMissao = M.idMissao;
+
+-- F3 - Recupera os jogadores ordenados por saldo decrescente
+SELECT idPersonagem, nome, saldo
+FROM Jogavel
+ORDER BY saldo DESC;
+
+-- F4 - Recupera a quantidade de jogadores por classe
+SELECT idClasse, COUNT(*) AS quantidade
+FROM Jogavel
+GROUP BY idClasse;
+
+-- F4 (MELHORADA) - Recupera a quantidade de jogadores por classe, mostrando o tipo de classe (GUE, ARQ, etc.)
+SELECT C.tipoClasse, COUNT(*) AS quantidade
+FROM Jogavel J
+INNER JOIN Classe C ON J.idClasse = C.idClasse
+GROUP BY C.tipoClasse;
+
+-- F5 - Recupera as classes com mais de 5 jogadores
+SELECT idClasse, COUNT(*) AS quantidade
+FROM Jogavel
+GROUP BY idClasse
+HAVING COUNT(*) > 3;
+
+-- F5 (MELHORADA) - Recupera as classes com mais de 5 jogadores, mostrando o tipo de classe (GUE, ARQ, etc.)
+SELECT C.tipoClasse, COUNT(*) AS quantidade
+FROM Jogavel J
+INNER JOIN Classe C ON J.idClasse = C.idClasse
+GROUP BY C.tipoClasse
+HAVING COUNT(*) > 3;
+
+-- F6 - Recupera os nomes de todos os personagens, sejam jogáveis ou não
+SELECT nome FROM Jogavel
+UNION
+SELECT nome FROM NaoJogavel;
+
+-- F7 - Recupera os jogadores que pertencem às classes 1 ou 2
+SELECT nome, idClasse
+FROM Jogavel
+WHERE idClasse IN (1, 2);
+
+-- F8 - Recupera os jogadores cujos nomes começam com 'Ra'
+SELECT *
+FROM Jogavel
+WHERE nome LIKE 'Ra%';
+
+-- F9 - Recupera as missões que ainda não foram realizadas por nenhum jogador
+SELECT M.idMissao, M.xpMissao, M.dinheiro
+FROM Missao M
+LEFT JOIN Realiza R ON M.idMissao = R.idMissao
+WHERE R.idMissao IS NULL;
+
+-- F10 - Recupera os jogadores que têm saldo maior que qualquer saldo dos jogadores da classe 1
+SELECT *
+FROM Jogavel
+WHERE saldo > ANY (SELECT saldo FROM Jogavel WHERE idClasse = 1);
+
+-- F11 - Recupera os jogadores que têm saldo maior que todos os saldos dos jogadores da classe 1
+SELECT nome, saldo
+FROM Jogavel
+WHERE saldo >= ALL (SELECT saldo FROM Jogavel WHERE idClasse = 1);
+
+-- F12 - Recupera os jogadores que realizaram pelo menos uma missão
+SELECT idPersonagem, nome
+FROM Jogavel J
+WHERE EXISTS (SELECT 1 FROM Realiza R WHERE R.idPersonagem = J.idPersonagem);
+
+-- AND - Recupera os jogadores da classe 1 com saldo maior que 50
+SELECT idPersonagem, nome, idClasse, saldo
+FROM Jogavel
+WHERE idClasse = 1 AND saldo > 50;
+
+-- OR - Recupera os jogadores da classe 1 ou da classe 2
+SELECT idPersonagem, nome, idClasse
+FROM Jogavel
+WHERE idClasse = 1 OR idClasse = 2;
+
+-- NOT - Recupera os jogadores que não pertencem à classe 1
+SELECT idPersonagem, nome, idClasse
+FROM Jogavel
+WHERE NOT idClasse = 1;
+
+-- BETWEEN - Recupera os jogadores com saldo entre 50 e 100
+SELECT idPersonagem, nome, saldo
+FROM Jogavel
+WHERE saldo BETWEEN 0 AND 100;
+```
+
+## `VIEW`
+```sql
+-- Cria uma view que retorna o nome dos jogadores e o tipo de classe que eles pertencem
+CREATE VIEW View_Jogadores_Classes AS
+SELECT J.nome, C.tipoClasse
+FROM Jogavel J
+INNER JOIN Classe C ON J.idClasse = C.idClasse;
+
+-- Seleciona todos os jogadores da classe Ladrão (LAD)
+SELECT * FROM View_Jogadores_Classes WHERE tipoClasse = 'LAD';
+
+-- Cria uma view que retorna as missões que ainda não foram realizadas por nenhum jogador
+CREATE VIEW View_Missoes_Nao_Realizadas AS
+SELECT M.idMissao, M.xpMissao, M.dinheiro
+FROM Missao M
+LEFT JOIN Realiza R ON M.idMissao = R.idMissao
+WHERE R.idMissao IS NULL;
+
+-- Seleciona as missões não realizadas que oferecem mais de 100 pontos de experiência
+SELECT * FROM View_Missoes_Nao_Realizadas WHERE xpMissao > 100;
+
+-- Cria uma view que retorna os itens comuns e seus preços, juntamente com o nome do vendedor (personagem não jogável)
+CREATE VIEW View_Itens_Comuns_Precos AS
+SELECT C.idItem, C.preco, NJ.nome AS vendedor
+FROM Comum C
+INNER JOIN NaoJogavel NJ ON C.idPersonagem = NJ.idPersonagem;
+
+-- Seleciona os itens comuns com preço superior a 75.00
+SELECT * FROM View_Itens_Comuns_Precos WHERE preco > 75.00;
+```
+
+## `USER`
+```sql
+-- Cria um usuário chamado 'admin' com a senha 'admin123'
+CREATE USER 'admin'@'localhost' IDENTIFIED BY 'admin123';
+
+-- Cria um usuário chamado 'leitor' com a senha 'leitor123'
+CREATE USER 'leitor'@'localhost' IDENTIFIED BY 'leitor123';
+
+-- Concede todas as permissões (ALL PRIVILEGES) no banco de dados 'projetoISBD' ao usuário 'admin'
+GRANT ALL PRIVILEGES ON projetoISBD.* TO 'admin'@'localhost';
+
+-- Concede permissão de leitura (SELECT) no banco de dados 'projetoISBD' ao usuário 'leitor'
+GRANT SELECT ON projetoISBD.* TO 'leitor'@'localhost';
+
+-- Revoga a permissão de leitura (SELECT) no banco de dados 'projetoISBD' do usuário 'leitor'
+REVOKE SELECT ON projetoISBD.* FROM 'leitor'@'localhost';
+
+-- Revoga todas as permissões (ALL PRIVILEGES) no banco de dados 'projetoISBD' do usuário 'admin'
+REVOKE ALL PRIVILEGES ON projetoISBD.* FROM 'admin'@'localhost';
+
+-- O usuário 'admin' pode inserir um novo jogador na tabela 'Jogavel'
+INSERT INTO Jogavel (nome, idade, raca, localOrigem, saldo, xpJogador, resistencia, furtividade, precisao, magia, dano, idClasse)
+VALUES ('NovoJogador', 25, 'Humano', 'SP', 100.00, 0, 10, 5, 7, 6, 8, 1);
+
+-- O usuário 'leitor' pode consultar os jogadores na tabela 'Jogavel'
+SELECT * FROM Jogavel;
+
+-- Mostra as permissões concedidas ao usuário 'admin'
+SHOW GRANTS FOR 'admin'@'localhost';
+
+-- Mostra as permissões concedidas ao usuário 'leitor'
+SHOW GRANTS FOR 'leitor'@'localhost';
+```
+
+## `PROCEDURE`
+```sql
+-- -------------------------------------------------------------------------
+-- Classifica uma missão como "Fácil", "Média" ou "Difícil" com base na experiência (XP) que concede.
+-- -------------------------------------------------------------------------
+
+DELIMITER //
+CREATE PROCEDURE ClassificarDificuldadeMissao(
+    IN aux_idMissao INT,
+    OUT dificuldade VARCHAR(20)
+)
+BEGIN
+    DECLARE aux_xpMissao DECIMAL(3);
+
+    -- Obtém o XP da missão
+    SELECT xpMissao INTO aux_xpMissao
+    FROM Missao
+    WHERE idMissao = aux_idMissao;
+
+    -- Classifica a dificuldade usando CASE WHEN
+    SET dificuldade = CASE
+        WHEN aux_xpMissao <= 50 THEN 'Fácil' -- Classifica a missão como 'Fácil' caso o XP for menor ou igual a 50
+        WHEN aux_xpMissao BETWEEN 51 AND 150 THEN 'Média' -- Classifica a missão como 'Média' caso o XP estiver entre 51 e 150
+        ELSE 'Difícil' -- Classifica como 'Difícil' caso nenhum dos casos anteriores for verdadeiro
+    END;
+END //
+DELIMITER ;
+
+DROP PROCEDURE ClassificarDificuldadeMissao; -- Exclui o procedimento
+
+-- TESTE 
+-- Inserir missões para teste
+-- Atenção, caso o script referente à letra c já tiver sido executado a inserção destes valores irá gerar erro!
+INSERT INTO Missao (idMissao, xpMissao, dinheiro) VALUES (3, 30, 20.00); -- Fácil
+INSERT INTO Missao (idMissao, xpMissao, dinheiro) VALUES (4, 100, 80.00); -- Média
+
+-- Executar o procedimento
+CALL ClassificarDificuldadeMissao(3, @dificuldade);
+SELECT @dificuldade AS dificuldade; -- Deve retornar "Fácil" (para o dado inserido acima) / Deve retornar "Média" (para o dado inserido no script referente à letra c)
+
+CALL ClassificarDificuldadeMissao(4, @dificuldade);
+SELECT @dificuldade AS dificuldade; -- Deve retornar "Média" (para o dado inserido acima e para o dado inserido no script referente à letra c)
+
+-- -------------------------------------------------------------------------
+-- Calcula o XP total necessário para alcançar um determinado nível.
+-- Isto é, caso o 'Jogável' tiver um XP maior ao apresentado por esta
+-- função, ele tera o nível buscado
+-- -------------------------------------------------------------------------
+
+DELIMITER //
+CREATE FUNCTION CalcularXPTotalAteNivel(nivel INT)
+RETURNS DECIMAL(5)
+DETERMINISTIC
+BEGIN
+    DECLARE xpTotal DECIMAL(5) DEFAULT 0;
+    DECLARE contador INT DEFAULT 1;
+    DECLARE xpNecessario INT DEFAULT 100;  -- XP necessário para o nível 1
+
+    -- Loop para somar o XP total até o nível desejado
+    WHILE contador < nivel DO
+        SET xpTotal = xpTotal + xpNecessario;
+        SET xpNecessario = xpNecessario + 50;  -- Aumenta a progressão do XP
+        SET contador = contador + 1;
+    END WHILE;
+    
+    RETURN xpTotal;
+END //
+DELIMITER ;
+
+DROP FUNCTION CalcularXPTotalAteNivel; -- Exclui a função
+
+-- TESTE
+-- Calcular XP até o nível 3 (100 + 150 = 250)
+SELECT CalcularXPTotalAteNivel(3) AS XPTotal; -- Retorna 250, que é o valor mínimo de XP para se alcançar o nível 3
+
+-- ------------------------------------------------------------------------------- 
+-- Consulta a experiência (xpJogador) do jogador e retorna o nível calculado.
+-- -------------------------------------------------------------------------
+
+DELIMITER //
+CREATE FUNCTION CalcularNivelJogador(
+    aux_idPersonagem INT
+)
+RETURNS INT
+DETERMINISTIC
+BEGIN
+    DECLARE aux_xpJogador DECIMAL(5);  -- Experiência do jogador
+    DECLARE nivel INT DEFAULT 1;   -- Nível inicial
+    DECLARE xpNecessario INT DEFAULT 100;  -- XP necessário para o próximo nível
+
+    -- 1. Obter a experiência do jogador
+    SELECT xpJogador INTO aux_xpJogador
+    FROM Jogavel
+    WHERE idPersonagem = aux_idPersonagem;
+
+    -- 2. Calcular o nível usando WHILE
+    WHILE aux_xpJogador >= xpNecessario DO
+        SET nivel = nivel + 1;  -- Incrementar o nível
+        SET aux_xpJogador = aux_xpJogador - xpNecessario;  -- Subtrair XP gasto
+        SET xpNecessario = xpNecessario + 50;  -- Aumentar XP necessário para o próximo nível
+    END WHILE;
+
+    -- 3. Retornar o nível calculado
+    RETURN nivel;
+END //
+DELIMITER ;
+
+DROP FUNCTION CalcularNivelJogador; -- Exclui a função
+
+-- TESTE
+-- Inserir um jogador com 350 pontos de experiência
+-- Atenção, caso o script referente à letra c já tiver sido executado a inserção deste valor irá gerar erro!
+INSERT INTO Jogavel(idPersonagem, nome, idade, raca, localOrigem, saldo, xpJogador, resistencia, furtividade, precisao, magia, dano, idClasse)
+VALUES (5, 'Legolas', 200, 'Elfo', 'Floresta', 50.00, 300.00, 8, 10, 15, 5, 10, 2);
+
+-- Calcular o nível do jogador com idPersonagem = 5
+SELECT nome, CalcularNivelJogador(5) AS nivel
+FROM Jogavel
+WHERE idPersonagem = 5; -- Deve retornar nivel = 2 (para o dado inserido acima e para o dado inserido no script referente à letra c)
 ```
