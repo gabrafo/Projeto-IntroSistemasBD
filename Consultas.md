@@ -347,7 +347,7 @@ INSERT INTO Comum (resistencia, dano, preco, idPersonagem) VALUES
 INSERT INTO Compra (idPersonagemJogavel, idItem, idPersonagemNaoJogavel) VALUES
 (1, 3, 3),   -- Jogavel 1 (Aragorn) compra Comum 3 de NPC 3 (Andre of Astora)
 (1, 1, 1),   -- Jogavel 1 (Aragorn) compra Comum 1 de NPC 1 (Corvo de Três Olhos)
-(5, 3, 3),  -- Jogavel 51 (Lautrec) compra Comum 3 de NPC 3 (Andre of Astora)
+(5, 3, 3),  -- Jogavel 5 (Lautrec) compra Comum 3 de NPC 3 (Andre of Astora)
 (7, 5, 5),   -- Jogavel 7 (Ranni) compra Comum 5 de NPC 5 (Siegmeyer)
 (9, 6, 6),   -- Jogavel 9 (Boromir) compra Comum 6 de NPC 6 (Quelaag)
 (4, 4, 4),   -- Jogavel 4 (Artorias) compra Comum 4 de NPC 4 (Quelana)
