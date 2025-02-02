@@ -705,3 +705,73 @@ SELECT nome, CalcularNivelJogador(5) AS nivel
 FROM Jogavel
 WHERE idPersonagem = 5; -- Deve retornar nivel = 2 (para o dado inserido acima e para o dado inserido no script referente à letra c)
 ```
+## `TRIGGERS`
+```sql
+-- -----------------------------------------------
+-- Trigger que impede que seja inserido um saldo negativo para o personagem Jogavel
+-- -----------------------------------------------
+
+DELIMITER //
+CREATE TRIGGER before_insert_jogavel
+BEFORE INSERT ON Jogavel
+FOR EACH ROW
+BEGIN
+    IF NEW.saldo < 0 THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'O saldo do personagem não pode ser negativo.';
+    END IF;
+END;
+//
+DELIMITER ;
+
+-- Teste de Trigger
+INSERT INTO Jogavel (nome, idade, raca, localOrigem, saldo, xpJogador, resistencia, furtividade, precisao, magia, dano, idClasse)
+VALUES ('HeróiSombrio', 30, 'Elfo', 'Floresta Encantada', -50.00, 10.00, 5, 4, 6, 3, 7, 1);
+
+-- -----------------------------------------------
+-- Trigger que impede redução da experiência (xp) do personagem Jogavel
+-- -----------------------------------------------
+
+DELIMITER //
+CREATE TRIGGER before_update_xpJogador
+BEFORE UPDATE ON Jogavel
+FOR EACH ROW
+BEGIN
+    IF NEW.xpJogador < OLD.xpJogador THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Não é permitido reduzir a experiência do jogador.';
+    END IF;
+END;
+//
+DELIMITER ;
+
+-- Teste de Trigger
+INSERT INTO Jogavel (nome, idade, raca, localOrigem, saldo, xpJogador, resistencia, furtividade, precisao, magia, dano, idClasse)
+VALUES ('GuerreiroLendario', 35, 'Orc', 'Montanhas Sombrias', 200.00, 50.00, 7, 5, 8, 2, 9, 2);
+
+UPDATE Jogavel 
+SET xpJogador = 30.00 
+WHERE nome = 'GuerreiroLendario';
+
+-- -----------------------------------------------
+-- Trigger que impede exclusão de missão em andamento
+-- -----------------------------------------------
+
+DELIMITER //
+CREATE TRIGGER before_delete_missao
+BEFORE DELETE ON Missao
+FOR EACH ROW
+BEGIN
+    IF EXISTS (SELECT 1 FROM Realiza WHERE idMissao = OLD.idMissao) THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Não é possível excluir uma missão que está sendo realizada por um personagem.';
+    END IF;
+END;
+//
+DELIMITER ;
+
+-- Teste de Trigger
+INSERT INTO Realiza (idPersonagem, idMissao) VALUES (3, 2); -- Supondo que o personagem ID 3 e a missão de id 2 existem
+
+DELETE FROM Missao WHERE idMissao = 2;
+```
