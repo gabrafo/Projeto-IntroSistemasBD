@@ -6,7 +6,7 @@ A ideia do projeto é criar um sistema de gerenciamento de dados para um jogo RP
 
 ## Participantes
 - Gabriel Fagundes Mesquita Sousa (@gabrafo)
-- Gilmar Silva de Medeiros Filho
+- Gilmar Silva de Medeiros Filho (@gilmar-filho)
 - Hugo Dias Pontello
 - Melissa de Carvalho Vila Real
 - Samuel de Oliveira Vanoni (@SamuVanoni)
