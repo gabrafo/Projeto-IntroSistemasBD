@@ -76,8 +76,6 @@ CREATE TABLE IF NOT EXISTS `projetoISBD`.`Realiza` (
   `idPersonagem` INT NOT NULL,
   `idMissao` INT NOT NULL,
   PRIMARY KEY (`idPersonagem`, `idMissao`),
-  INDEX `fk_Jogavel_has_Missao_Missao1_idx` (`idMissao` ASC) VISIBLE,
-  INDEX `fk_Jogavel_has_Missao_Jogavel_idx` (`idPersonagem` ASC) VISIBLE,
   CONSTRAINT `fk_Jogavel_has_Missao_Jogavel`
     FOREIGN KEY (`idPersonagem`)
     REFERENCES `projetoISBD`.`Jogavel` (`idPersonagem`)
