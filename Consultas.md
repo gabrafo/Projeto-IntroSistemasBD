@@ -588,7 +588,7 @@ SHOW GRANTS FOR 'leitor'@'localhost';
 ## `PROCEDURE`
 ```sql
 -- -------------------------------------------------------------------------
--- Classifica uma missão como "Fácil", "Média" ou "Difícil" com base na experiência (XP) que concede.
+-- Classifica uma missão como 'Fácil', 'Média' ou 'Difícil' com base na experiência (XP) que concede.
 -- -------------------------------------------------------------------------
 
 DELIMITER //
@@ -628,41 +628,9 @@ SELECT @dificuldade AS dificuldade; -- Deve retornar "Fácil" (para o dado inser
 CALL ClassificarDificuldadeMissao(4, @dificuldade);
 SELECT @dificuldade AS dificuldade; -- Deve retornar "Média" (para o dado inserido acima e para o dado inserido no script referente à letra c)
 
--- -------------------------------------------------------------------------
--- Calcula o XP total necessário para alcançar um determinado nível.
--- Isto é, caso o 'Jogável' tiver um XP maior ao apresentado por esta
--- função, ele tera o nível buscado
--- -------------------------------------------------------------------------
-
-DELIMITER //
-CREATE FUNCTION CalcularXPTotalAteNivel(nivel INT)
-RETURNS DECIMAL(5)
-DETERMINISTIC
-BEGIN
-    DECLARE xpTotal DECIMAL(5) DEFAULT 0;
-    DECLARE contador INT DEFAULT 1;
-    DECLARE xpNecessario INT DEFAULT 100;  -- XP necessário para o nível 1
-
-    -- Loop para somar o XP total até o nível desejado
-    WHILE contador < nivel DO
-        SET xpTotal = xpTotal + xpNecessario;
-        SET xpNecessario = xpNecessario + 50;  -- Aumenta a progressão do XP
-        SET contador = contador + 1;
-    END WHILE;
-    
-    RETURN xpTotal;
-END //
-DELIMITER ;
-
-DROP FUNCTION CalcularXPTotalAteNivel; -- Exclui a função
-
--- TESTE
--- Calcular XP até o nível 3 (100 + 150 = 250)
-SELECT CalcularXPTotalAteNivel(3) AS XPTotal; -- Retorna 250, que é o valor mínimo de XP para se alcançar o nível 3
-
 -- ------------------------------------------------------------------------------- 
 -- Consulta a experiência (xpJogador) do jogador e retorna o nível calculado.
--- -------------------------------------------------------------------------
+-- -------------------------------------------------------------------------------
 
 DELIMITER //
 CREATE FUNCTION CalcularNivelJogador(
@@ -704,6 +672,36 @@ VALUES (5, 'Legolas', 200, 'Elfo', 'Floresta', 50.00, 300.00, 8, 10, 15, 5, 10, 
 SELECT nome, CalcularNivelJogador(5) AS nivel
 FROM Jogavel
 WHERE idPersonagem = 5; -- Deve retornar nivel = 2 (para o dado inserido acima e para o dado inserido no script referente à letra c)
+
+-- ------------------------------------------------------------------------------- 
+-- Retorna uma classificação para cada jogador (Jogável) de acordo com a quantidade
+-- da sua experiência (XP)
+-- -------------------------------------------------------------------------------
+
+DELIMITER //
+CREATE PROCEDURE ClassificarJogadores()
+BEGIN
+    SELECT 
+        idPersonagem,
+        nome,
+        xpJogador,
+        CASE 
+            WHEN xpJogador >= 350 THEN 'Lendário' -- Classificação para xp acima ou igual a 350
+            WHEN xpJogador >= 200 THEN 'Veterano' -- Classificação para xp entre 200 e 349
+            WHEN xpJogador >= 50 THEN 'Intermediário' -- Classificação para xp entre 50 e 199
+            ELSE 'Iniciante' -- Classificação para xp abaixo de 50
+        END AS classificacao
+    FROM projetoISBD.Jogavel
+    ORDER BY xpJogador DESC;
+END //
+DELIMITER ;
+
+DROP PROCEDURE ClassificarJogadores; -- Exclui o procedimento
+
+-- TESTE
+-- Deve retornar uma tabela com todos os personagens jogáveis classificados de acordo com sua experiência (XP)
+-- Os dados devem estar ordenados do maior para o menor (decrescente), ou seja, na ordem: 'Lendário', 'Veterano', 'Intermediário' e 'Iniciante'
+CALL ClassificarJogadores();
 ```
 ## `TRIGGERS`
 ```sql
