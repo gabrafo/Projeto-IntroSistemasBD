@@ -15,7 +15,7 @@ $magia = $_POST["magia"];
 $dano = $_POST["dano"];
 $idClasse = $_POST["idClasse"];
 
-if(isset($_POST["idPersonagem"])) {
+if (isset($_POST["idPersonagem"])) {
     $sql = "UPDATE Jogavel SET nome='$nome', idade=$idade, raca='$raca', localOrigem='$localOrigem', saldo=$saldo, xpJogador=$xpJogador, resistencia=$resistencia, furtividade=$furtividade, precisao=$precisao, magia=$magia, dano=$dano, idClasse=$idClasse WHERE idPersonagem={$_POST["idPersonagem"]}";
 } else {
     // Verifica se o nome já existe
@@ -26,7 +26,7 @@ if(isset($_POST["idPersonagem"])) {
         echo "<script>alert('Erro: Nome já existe! Escolha outro nome.'); window.location.href='form_incluir.php';</script>";
         exit();
     }
-    
+
     $sql = "INSERT INTO Jogavel (nome, idade, raca, localOrigem, saldo, xpJogador, resistencia, furtividade, precisao, magia, dano, idClasse) VALUES ('$nome', $idade, '$raca', '$localOrigem', $saldo, $xpJogador, $resistencia, $furtividade, $precisao, $magia, $dano, $idClasse)";
 }
 
