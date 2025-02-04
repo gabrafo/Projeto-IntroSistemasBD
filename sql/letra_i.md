@@ -112,4 +112,22 @@ DROP PROCEDURE ClassificarJogadores; -- Exclui o procedimento
 -- Deve retornar uma tabela com todos os personagens jogáveis classificados de acordo com sua experiência (XP)
 -- Os dados devem estar ordenados do maior para o menor (decrescente), ou seja, na ordem: 'Lendário', 'Veterano', 'Intermediário' e 'Iniciante'
 CALL ClassificarJogadores();
+
+
+-- ------------------------------------------------------------------------------- 
+-- Retorna uma relação de itens e seus vendedores 
+-- -------------------------------------------------------------------------------
+
+DELIMITER //
+CREATE PROCEDURE ListarItensComunsEVendedores()
+BEGIN
+    SELECT C.idItem, C.resistencia, C.dano, C.preco, N.nome AS NomeVendedor
+    FROM projetoISBD.Comum C
+    JOIN projetoISBD.NaoJogavel N ON C.idPersonagem = N.idPersonagem
+    ORDER BY N.nome;
+END //
+DELIMITER ;
+
+-- TESTE
+CALL ListarItensComunsEVendedores();
 ```
