@@ -1,28 +1,29 @@
-<?php
-    header("Content-Type: text/html; charset=utf-8", true);
-?>
-<html>
-
-<head>
     <title>Incluir/Editar Personagem</title>
 </head>
-
 <body>
+    <!-- Formulário para cadastro/edição com envio POST para incluir.php -->
     <form name="form1" method="POST" action="incluir.php">
         <?php
+        // Verifica se é uma edição (quando há ID na URL)
         if (isset($_GET["idPersonagem"])) {
+            // Conexão e consulta para carregar dados existentes
             include("./config.php");
             $con = mysqli_connect($host, $login, $senha, $bd);
+            
+            // ATENÇÃO: Vulnerável a SQL Injection - usar prepared statements
             $sql = "SELECT * FROM Jogavel WHERE idPersonagem=" . $_GET['idPersonagem'];
             $result = mysqli_query($con, $sql);
-            $vetor = mysqli_fetch_assoc($result);
+            $vetor = mysqli_fetch_assoc($result); // Armazena dados do personagem
             mysqli_close($con);
         ?>
+            <!-- Campo oculto para manter o ID durante a edição -->
             <input type="hidden" name="idPersonagem" value="<?php echo $_GET['idPersonagem']; ?>">
         <?php
         }
         ?>
         <table border="0" align="center" width="50%">
+            <!-- Campos do formulário com valores pré-preenchidos (se for edição) -->
+            <!-- @ suprime erros de variável não definida -->
             <tr>
                 <td>Nome:</td>
                 <td><input type="text" name="nome" value="<?php echo @$vetor['nome']; ?>" required></td>
@@ -67,27 +68,38 @@
                 <td>Dano:</td>
                 <td><input type="number" name="dano" value="<?php echo @$vetor['dano']; ?>" required></td>
             </tr>
+
+           <!-- Seletor de Classe com opções carregadas do banco -->
             <tr>
                 <td>Classe:</td>
-                <td><select name="idClasse" required>
+                <td>
+                    <select name="idClasse" required>
                         <?php
+                        // Consulta todas as classes disponíveis
                         include("./config.php");
                         $con = mysqli_connect($host, $login, $senha, $bd);
                         $query = "SELECT idClasse, tipoClasse FROM Classe";
                         $result = mysqli_query($con, $query);
+                        
+                        // Preenche dinamicamente as opções do dropdown
                         while ($row = mysqli_fetch_assoc($result)) {
-                            echo "<option value='" . $row['idClasse'] . "'>" . $row['tipoClasse'] . "</option>";
+                            echo "<option value='" . $row['idClasse'] . "'>" 
+                                . htmlspecialchars($row['tipoClasse']) // Prevenção XSS básica
+                                . "</option>";
                         }
                         mysqli_close($con);
                         ?>
                     </select>
                 </td>
             </tr>
+            <!-- Botões de ação -->
             <tr>
                 <td colspan="2" align="center">
+                    <!-- Botão Cancelar volta para lista principal -->
                     <input type="button" value="Cancelar" onclick="location.href='index.php'">
                     <input type="submit" value="Gravar">
                 </td>
+            </tr>
         </table>
     </form>
 </body>
