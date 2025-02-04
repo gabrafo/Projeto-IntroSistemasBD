@@ -30,6 +30,7 @@ UPDATE Guerreiro SET `+resistencia` = 10 WHERE IdClasse = 1;
 SET SQL_SAFE_UPDATES = 0;
 UPDATE Comum SET dano = dano + 1 WHERE idItem IN (SELECT idItem FROM Compra WHERE IdPersonagemJogavel = 1);
 SET SQL_SAFE_UPDATES = 1;
+
 -- Atualização aninhada: Aumentar o dano de todos os itens comprados por um jogador
 UPDATE Comum c
 JOIN Compra cp ON c.idItem = cp.idItem

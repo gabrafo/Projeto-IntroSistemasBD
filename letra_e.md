@@ -13,6 +13,7 @@ SELECT * FROM NaoJogavel;                          -- Aux do 5° e 6° delete
 SET SQL_SAFE_UPDATES = 0;
 DELETE FROM Comum WHERE idItem IN (SELECT idItem FROM Compra WHERE IdPersonagemJogavel = 1);
 SET SQL_SAFE_UPDATES = 1;
+
 -- Exclusão aninhada: Excluir todos os itens comprados por um jogador
 DELETE c 
 FROM Comum c

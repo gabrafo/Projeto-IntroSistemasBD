@@ -12,8 +12,7 @@ BEGIN
         SIGNAL SQLSTATE '45000'
         SET MESSAGE_TEXT = 'O saldo do personagem não pode ser negativo.';
     END IF;
-END;
-//
+END //
 DELIMITER ;
 
 -- Teste de Trigger
@@ -34,8 +33,7 @@ BEGIN
         SIGNAL SQLSTATE '45000'
         SET MESSAGE_TEXT = 'Não é permitido reduzir a experiência do jogador.';
     END IF;
-END;
-//
+END //
 DELIMITER ;
 
 -- Teste de Trigger
