@@ -1,7 +1,5 @@
 ```sql
 use projetoISBD;
-
-
 -- Inserindo classes base
 INSERT INTO Classe (tipoClasse) VALUES 
 ('GUE'), -- Guerreiro
@@ -97,32 +95,110 @@ INSERT INTO Unico (resistencia, dano, `+dano`, `+resistencia`, Missao_idMissao) 
 (8, 12, 5, 4, 8); -- Relacionado à missão 8
 
 
+-- --------------------------------------------------------------
+-- Trigger para verificar se o personagem não jogável inserido na tabela Comum
+-- é realmente de um mercador
+-- -------------------------------------------------------------- 
+DELIMITER //
+CREATE TRIGGER VerificarVendedorMercador
+BEFORE INSERT ON Comum
+FOR EACH ROW
+BEGIN
+    DECLARE tipoNPC ENUM('M', 'O');  -- Tipo do personagem não jogável
+
+    -- Obtém o tipo do personagem não jogável
+    SELECT tipoNaoJogavel INTO tipoNPC
+    FROM projetoISBD.NaoJogavel
+    WHERE idPersonagem = NEW.idPersonagem;
+
+    -- Verifica se o personagem não é um mercador ('M')
+    IF NOT tipoNPC = 'M' THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Erro: Apenas mercadores podem vender itens';
+    END IF;
+END //
+DELIMITER ;
+
 -- Itens Comuns (Comum):
 INSERT INTO Comum (resistencia, dano, preco, idPersonagem) VALUES
-(5, 8, 50.00, 1), -- Relacionado a Aragorn
-(3, 5, 30.00, 2), -- Relacionado a Legolas
-(10, 15, 100.00, 3), -- Relacionado à Arya Stark
-(8, 12, 80.00, 4), -- Relacionado a Artorias
-(2, 1, 10.00, 5), -- Relacionado a Lautrec
-(6, 4, 40.00, 6), -- Relacionado a Radahn
-(5, 8, 500.00, 2), -- Relacionado a Legolas
-(7, 10, 60.00, 7), -- Relacionado à Ranni
-(4, 3, 20.00, 8); -- Relacionado a Blaidd
+(5, 8, 50.00, 1), -- Relacionado a Corvo de Três Olhos
+(8, 12, 80.00, 4), -- Relacionado a Quelana
+(6, 4, 40.00, 6), -- Relacionado a Quelaag
+(7, 10, 60.00, 7), -- Relacionado a Miriel
+(4, 40, 75.00, 9), -- Relacionado a Treebeard
+(9, 20, 35.00, 10); -- Relacionado a Elrond
 
+
+-- --------------------------------------------------------------
+-- Trigger para verificar se o personagem não jogável inserido na tabela Compra
+-- é realmente de um mercador ou se ele está relacionado ao item
+-- -------------------------------------------------------------- 
+DELIMITER //
+CREATE TRIGGER VerificarMercadorEEstoque
+BEFORE INSERT ON Compra
+FOR EACH ROW
+BEGIN
+    DECLARE tipoNPC ENUM('M', 'O');  -- Tipo do personagem não jogável (mercador ou outro)
+    DECLARE itemExiste INT;  -- Variável para verificar se o item está no estoque
+
+    -- Verifica se o personagem não jogável é um mercador
+    SELECT tipoNaoJogavel INTO tipoNPC
+    FROM projetoISBD.NaoJogavel
+    WHERE idPersonagem = NEW.idPersonagemNaoJogavel;
+
+    -- Se o personagem não for um mercador, bloqueia a compra
+    IF NOT tipoNPC = 'M' THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Erro: Apenas mercadores podem vender itens na tabela Compra';
+    END IF;
+
+    -- Verifica se o mercador tem o item em estoque
+    SELECT COUNT(*) INTO itemExiste
+    FROM projetoISBD.Comum
+    WHERE idItem = NEW.idItem AND idPersonagem = NEW.idPersonagemNaoJogavel;
+
+    -- Se o item não estiver no estoque do mercador, bloqueia a compra
+    IF itemExiste = 0 THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Erro: O mercador não possui esse item em estoque';
+    END IF;
+END //
+DELIMITER ;
 
 -- Transações (Compra):
 INSERT INTO Compra (idPersonagemJogavel, idItem, idPersonagemNaoJogavel) VALUES
-(1, 3, 3),   -- Jogavel 1 (Aragorn) compra Comum 3 de NPC 3 (Andre of Astora)
 (1, 1, 1),   -- Jogavel 1 (Aragorn) compra Comum 1 de NPC 1 (Corvo de Três Olhos)
-(5, 3, 3),  -- Jogavel 5 (Lautrec) compra Comum 3 de NPC 3 (Andre of Astora)
-(7, 5, 5),   -- Jogavel 7 (Ranni) compra Comum 5 de NPC 5 (Siegmeyer)
-(9, 6, 6),   -- Jogavel 9 (Boromir) compra Comum 6 de NPC 6 (Quelaag)
-(4, 4, 4),   -- Jogavel 4 (Artorias) compra Comum 4 de NPC 4 (Quelana)
-(10, 7, 7),  -- Jogavel 10 (Faramir) compra Comum 7 de NPC 7 (Miriel)
-(8, 8, 8);   -- Jogavel 8 (Blaidd) compra Comum 8 de NPC 8 (Thops)
+(9, 3, 6),   -- Jogavel 9 (Boromir) compra Comum 3 de NPC 6 (Quelaag)
+(4, 2, 4),   -- Jogavel 4 (Artorias) compra Comum 2 de NPC 4 (Quelana)
+(6, 4, 7),   -- Jogavel 6 (Radahn) compra Comum 4 de NPC 7 (Miriel)
+(2, 5, 9),   -- Jogavel 2 (Legolas) compra Comum 5 de NPC 9 (Treebeard)
+(10, 4, 7);  -- Jogavel 10 (Faramir) compra Comum 7 de NPC 7 (Miriel)
 
 
 -- EXEMPLOS DE RESTRIÇÃO
+-- Exemplo (Trigger): Relacionamento com personagens não jogáveis do tipo Outro ('O')
+INSERT INTO Comum (resistencia, dano, preco, idPersonagem) VALUES
+(4, 3, 20.00, 8), -- Relacionado a Thops
+(3, 5, 30.00, 2), -- Relacionado a Ferreiro Tobho
+(10, 15, 100.00, 3), -- Relacionado à Andre of Astora
+(5, 8, 500.00, 2), -- Relacionado a Ferreiro Tobho
+(2, 1, 10.00, 5); -- Relacionado a Siegmeyer
+
+
+-- Exemplos (Trigger): Relacionamento com personagens não jogáveis do tipo Outro ('O')
+-- ou que não tenha o item especificado
+-- 1 -> Tentativa de inserir um personagem não jogável que seja Outro ('O')
+INSERT INTO Compra (idPersonagemJogavel, idItem, idPersonagemNaoJogavel) VALUES
+(8, 8, 8),   -- Jogavel 8 (Blaidd) compra Comum 8 de NPC 8 (Thops) - Outro
+(1, 3, 3),   -- Jogavel 1 (Aragorn) compra Comum 3 de NPC 3 (Andre of Astora) - Outro
+(7, 5, 5),   -- Jogavel 7 (Ranni) compra Comum 5 de NPC 5 (Siegmeyer) - Outro
+(5, 3, 3);  -- Jogavel 5 (Lautrec) compra Comum 3 de NPC 3 (Andre of Astora) - Outro
+
+-- 2 -> Tentativa de inserir um personagem não jogável que não tenha o item
+INSERT INTO Compra (idPersonagemJogavel, idItem, idPersonagemNaoJogavel) VALUES
+(5, 3, 1); -- Jogavel 5 (Lautrec) compra Comum 3 de NPC 1 (Corvo de Três Olhos) - Não possui item
+
+
 -- Exemplo: valor DEFAULT de "saldo"
 INSERT INTO Jogavel (nome, idade, raca, localOrigem, xpJogador, resistencia, furtividade, precisao, magia, dano, idClasse) VALUES
 ('Solaire', 45, 'Humano', 'Astora', 300, 8, 3, 7, 4, 6, 1);
