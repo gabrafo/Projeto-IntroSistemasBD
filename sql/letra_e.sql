@@ -1,4 +1,3 @@
-```sql
 -- Auxiliares (ver modificações)
 SELECT C.idPersonagemJogavel, C.idItem, CO.dano    -- Aux do 1° delete
 FROM Compra C
@@ -9,10 +8,11 @@ SELECT * FROM Jogavel;                             -- Aux do 3° delete
 SELECT * FROM Missao;                              -- Aux do 4° delete
 SELECT * FROM NaoJogavel;                          -- Aux do 5° e 6° delete
 
--- Exclusão aninhada: Excluir todos os itens comprados por um jogador
+-- Exclusão aninhada: Excluir todos os itens comprados por um jogador (desativando o safe updates)
 SET SQL_SAFE_UPDATES = 0;
 DELETE FROM Comum WHERE idItem IN (SELECT idItem FROM Compra WHERE IdPersonagemJogavel = 1);
 SET SQL_SAFE_UPDATES = 1;
+
 -- Exclusão aninhada: Excluir todos os itens comprados por um jogador
 DELETE c 
 FROM Comum c
@@ -38,4 +38,3 @@ DELETE FROM NaoJogavel WHERE IdPersonagem = 1;
 
 -- Excluir um não jogável que não possui item Comum
 DELETE FROM NaoJogavel WHERE IdPersonagem = 9;
-```
