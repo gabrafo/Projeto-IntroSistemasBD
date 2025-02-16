@@ -1,4 +1,3 @@
-```sql
 -- F1 - Recupera o nome dos jogadores e o tipo de classe que eles pertencem
 SELECT J.nome, C.tipoClasse
 FROM Jogavel J
@@ -105,4 +104,3 @@ WHERE NOT idClasse = 1;
 SELECT idPersonagem, nome, saldo
 FROM Jogavel
 WHERE saldo BETWEEN 0 AND 100;
-```
