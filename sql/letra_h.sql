@@ -1,4 +1,3 @@
-```sql
 -- Cria um usuário chamado 'admin' com a senha 'admin123'
 CREATE USER 'admin'@'localhost' IDENTIFIED BY 'admin123';
 
@@ -29,4 +28,3 @@ REVOKE SELECT ON projetoISBD.* FROM 'leitor'@'localhost';
 
 -- Revoga todas as permissões (ALL PRIVILEGES) no banco de dados 'projetoISBD' do usuário 'admin'
 REVOKE ALL PRIVILEGES ON projetoISBD.* FROM 'admin'@'localhost';
-```
