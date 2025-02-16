@@ -1,4 +1,3 @@
-```sql
 -- Cria uma view que retorna o nome dos jogadores e o tipo de classe que eles pertencem
 CREATE VIEW View_Jogadores_Classes AS
 SELECT J.nome, C.tipoClasse
@@ -28,7 +27,6 @@ SELECT * FROM View_Missoes_Nao_Realizadas;
 SELECT * FROM View_Missoes_Nao_Realizadas WHERE xpMissao > 100;
 
 
-
 -- Cria uma view que retorna os itens comuns e seus preços, juntamente com o nome do vendedor (personagem não jogável)
 CREATE VIEW View_Itens_Comuns_Precos AS
 SELECT C.idItem, C.preco, NJ.nome AS vendedor
@@ -41,5 +39,3 @@ SELECT * FROM View_Itens_Comuns_Precos;
 
 -- Seleciona os itens comuns com preço superior a 75.00
 SELECT * FROM View_Itens_Comuns_Precos WHERE preco > 75.00;
-
-```
