@@ -1,5 +1,3 @@
-```sql
-use projetoISBD;
 -- Inserindo classes base
 INSERT INTO Classe (tipoClasse) VALUES 
 ('GUE'), -- Guerreiro
@@ -149,7 +147,7 @@ BEGIN
     -- Se o personagem não for um mercador, bloqueia a compra
     IF NOT tipoNPC = 'M' THEN
         SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Erro: Apenas mercadores podem vender itens na tabela Compra';
+        SET MESSAGE_TEXT = 'Erro: Apenas mercadores podem vender itens';
     END IF;
 
     -- Verifica se o mercador tem o item em estoque
@@ -208,4 +206,3 @@ INSERT INTO Jogavel (nome, idade, raca, localOrigem, xpJogador, resistencia, fur
 -- Error Code: 1062. Duplicate entry 'Solaire' for key 'Jogavel.nome'
 INSERT INTO Jogavel (nome, idade, raca, localOrigem, xpJogador, resistencia, furtividade, precisao, magia, dano, idClasse) VALUES
 ('Solaire', 70, 'Druida', 'Astalavista', 320, 8, 3, 7, 4, 6, 1);
-```
