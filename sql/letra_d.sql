@@ -1,4 +1,3 @@
-```sql
 -- Auxiliares (ver modificações)
 SELECT * FROM Jogavel;                             -- Aux do 1° update
 SELECT * FROM Missao;                              -- Aux do 2° update
@@ -26,13 +25,13 @@ UPDATE NaoJogavel SET tipoNaoJogavel = 'O' WHERE IdPersonagem = 1;
 UPDATE Guerreiro SET `+resistencia` = 10 WHERE IdClasse = 1;
 
 
--- Atualização aninhada: Aumentar o dano de todos os itens comprados por um jogador
+-- Atualização aninhada: Aumentar o dano de todos os itens comprados por um jogador (desativando o safe updates)
 SET SQL_SAFE_UPDATES = 0;
 UPDATE Comum SET dano = dano + 1 WHERE idItem IN (SELECT idItem FROM Compra WHERE IdPersonagemJogavel = 1);
 SET SQL_SAFE_UPDATES = 1;
+
 -- Atualização aninhada: Aumentar o dano de todos os itens comprados por um jogador
 UPDATE Comum c
 JOIN Compra cp ON c.idItem = cp.idItem
 SET c.dano = c.dano + 1
 WHERE cp.IdPersonagemJogavel = 1;
-```
