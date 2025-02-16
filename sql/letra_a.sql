@@ -1,4 +1,3 @@
-```sql
 -- -----------------------------------------------------
 -- Schema projetoISBD
 -- -----------------------------------------------------
@@ -210,4 +209,3 @@ CREATE TABLE IF NOT EXISTS `projetoISBD`.`Guerreiro` (
     REFERENCES `projetoISBD`.`Classe` (`idClasse`)
     ON DELETE CASCADE
     ON UPDATE NO ACTION);
-```
