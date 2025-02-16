@@ -1,4 +1,3 @@
-```sql
 -- -------------------------------------------------------------------------
 -- Classifica uma missão como 'Fácil', 'Média' ou 'Difícil' com base na experiência (XP) que concede.
 -- -------------------------------------------------------------------------
@@ -115,7 +114,7 @@ CALL ClassificarJogadores();
 
 
 -- ------------------------------------------------------------------------------- 
--- Retorna uma relação de itens e seus vendedores 
+-- Retorna uma relação de itens e seus vendedores (estoque)
 -- -------------------------------------------------------------------------------
 
 DELIMITER //
@@ -130,4 +129,3 @@ DELIMITER ;
 
 -- TESTE
 CALL ListarItensComunsEVendedores();
-```
