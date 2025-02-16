@@ -1,4 +1,3 @@
-```sql
 -- -----------------------------------------------
 -- Trigger que impede que seja inserido um saldo negativo para o personagem Jogavel
 -- -----------------------------------------------
@@ -11,13 +10,6 @@ BEGIN
     IF NEW.saldo < 0 THEN
         SIGNAL SQLSTATE '45000'
         SET MESSAGE_TEXT = 'O saldo do personagem não pode ser negativo.';
-    END IF;
-END //
-DELIMITER ;
-
--- Teste de Trigger
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Não é permitido reduzir a experiência do jogador.';
     END IF;
 END //
 DELIMITER ;
@@ -40,8 +32,7 @@ BEGIN
         SIGNAL SQLSTATE '45000'
         SET MESSAGE_TEXT = 'Não é permitido reduzir a experiência do jogador.';
     END IF;
-END;
-//
+END //
 DELIMITER ;
 
 -- Teste de Trigger
@@ -90,4 +81,3 @@ WHERE idItem = 3;
 -- Realizando Compra com o personagem Não Jogavel 4
 INSERT INTO Compra (idPersonagemJogavel, idItem, idPersonagemNaoJogavel)
 VALUES (1, 3, 4);
-```
